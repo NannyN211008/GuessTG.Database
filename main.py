@@ -5,8 +5,8 @@ app = Flask(__name__)
 app.secret_key = "gtg"
 
 @app.route("/")
-def home():
-    return render_template("index.html")
+def Home():
+    guessData = db.GetAllGuesses() # NOTE: the new line
+    return render_template("index.html", guesses=guessData)
 
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+app.run(debug=True, port=5000)
