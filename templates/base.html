@@ -17,13 +17,18 @@
 
 <body>
 
-    <h1 class="banner">GuessThe.Game Database</h1>
+   <h1 class="banner">GuessThe.Game Database</h1>
 
-    <nav>
-        <a href="/">Home</a>
+<nav>
+    <a href="/">Home</a>
+
+    {% if 'username' not in session %}
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-    </nav>
+    {% else %}
+        <a href="/logout">Logout</a>
+    {% endif %}
+</nav>
 
     <main>
         {% block content %}
