@@ -85,3 +85,22 @@ def ResetPassword(username, new_password):
     db.close()
 
     return True
+
+
+# ✅ ADD THIS (STEP 12 REQUIREMENT)
+def AddGuess(user_id, date, game, score):
+
+    if not date or not game:
+        return False
+
+    db = GetDB()
+
+    db.execute(
+        "INSERT INTO Guesses(user_id, date, game, score) VALUES (?, ?, ?, ?)",
+        (user_id, date, game, score)
+    )
+
+    db.commit()
+    db.close()
+
+    return True

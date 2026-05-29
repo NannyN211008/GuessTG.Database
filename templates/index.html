@@ -8,10 +8,11 @@
         Welcome to GuessThe.Game Database (aka. GTGDB). This website is dedicated to the hard working Year 12 SE students of 2024-2025. The last 5 minutes of class are always a flurry of excitement and hard work. They open <a href="https://guessthe.game/">GuessThe.Game</a> and scream their suggestions at the host. Let's start tracking their progress.
     </p>
 
-    <a href="/add"><button>Add guess</button></a>
+    {% if 'username' in session %}
         <br>
-        <p>Welcome back, {{ session['username'] }} 👋</p>
-        <p>Logged in as {{ session['username'] }}</p>
+        <p>Hello {{ session['username'] }}</p>
+
+        <a href="/add"><button>Add guess</button></a>
     {% endif %}
 
 </div>
