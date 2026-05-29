@@ -14,6 +14,10 @@ def Home():
 @app.route("/login", methods=["GET", "POST"])
 def Login():
 
+    # already logged in → redirect home
+    if "id" in session:
+        return redirect("/")
+
     error = None
 
     if request.method == "POST":
@@ -41,6 +45,10 @@ def Logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def Register():
+
+    # already logged in → redirect home
+    if "id" in session:
+        return redirect("/")
 
     error = None
 
