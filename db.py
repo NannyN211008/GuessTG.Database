@@ -1,34 +1,24 @@
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
-def GetDB():
 
-    # Connect to the database and return the connection object
+def GetDB():
     db = sqlite3.connect(".database/gtg.db")
     db.row_factory = sqlite3.Row
-
     return db
 
 
 def GetAllGuesses():
-
-    # Connect, query all guesses and then return the data
     db = GetDB()
     guesses = db.execute("SELECT * FROM Guesses").fetchall()
     db.close()
-
     return guesses
 
-
-##################################
-### New code starts here
-##################################
 
 def CheckLogin(username, password):
 
     db = GetDB()
 
-    # Ask the database for a single user matching the provided name
     user = db.execute(
         "SELECT * FROM Users WHERE username=?",
         (username,)
@@ -36,21 +26,53 @@ def CheckLogin(username, password):
 
     db.close()
 
-    # Do they exist?
-    if user is not None:
+    if user and check_password_hash(user['password'], password):
+        return user
 
-        # Is their password correct?
-        if check_password_hash(user['password'], password):
-
-            # Login successful
-            return user
-
-    # Login failed
     return None
 
-def ResetPassword(username, new_password):
-    
+
+def RegisterUser(username, password):
+
+    if not username or not password:
+        return False
+
     db = GetDB()
+
+    existing = db.execute(
+        "SELECT * FROM Users WHERE username=?",
+        (username,)
+    ).fetchone()
+
+    if existing:
+        db.close()
+        return False
+
+    hashed = generate_password_hash(password)
+
+    db.execute(
+        "INSERT INTO Users(username, password) VALUES(?, ?)",
+        (username, hashed)
+    )
+
+    db.commit()
+    db.close()
+
+    return True
+
+
+def ResetPassword(username, new_password):
+
+    db = GetDB()
+
+    user = db.execute(
+        "SELECT * FROM Users WHERE username=?",
+        (username,)
+    ).fetchone()
+
+    if not user:
+        db.close()
+        return False
 
     hashed = generate_password_hash(new_password)
 
@@ -61,3 +83,5 @@ def ResetPassword(username, new_password):
 
     db.commit()
     db.close()
+
+    return True

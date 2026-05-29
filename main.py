@@ -39,4 +39,41 @@ def Logout():
     return redirect("/")
 
 
+@app.route("/register", methods=["GET", "POST"])
+def Register():
+
+    error = None
+
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+
+        if db.RegisterUser(username, password):
+            return redirect("/")
+        else:
+            error = "Username already exists or invalid input"
+
+    return render_template("register.html", error=error)
+
+
+@app.route("/add", methods=["GET", "POST"])
+def Add():
+
+    # must be logged in
+    if "id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+        user_id = session['id']
+        date = request.form['date']
+        game = request.form['game']
+        score = request.form['score']
+
+        db.AddGuess(user_id, date, game, score)
+
+        return redirect("/")
+
+    return render_template("add.html")
+
+
 app.run(debug=True, port=5000)
