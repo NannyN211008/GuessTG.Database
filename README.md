@@ -1,2 +1,12 @@
-# GuessTG.Database
-A database-driven Progressive Web App that allows users to record and track GuessThe.Game results while demonstrating core web development concepts including authentication, database integration, routing, and offline PWA functionality using Python Flask, SQLite, HTML, CSS, and JavaScript.
+# Overview of the System
+
+GuessTG.Database is a database-driven Progressive Web Application (PWA) designed to allow users to record, store, and view GuessThe.Game results in a structured and interactive way. The system demonstrates core software engineering concepts including authentication, database management, client-server communication, routing, and offline capability through PWA technology.
+
+The application is built using a modern web stack consisting of:
+
+- Flask (Python) – backend web framework handling routing and logic
+- SQLite – lightweight relational database for persistent data storage
+- HTML/CSS/JavaScript – frontend structure, styling, and interactivity
+- Service Workers + Manifest File – enabling Progressive Web App functionality
+
+The system is designed to simulate a real-world web application where users can securely log in, submit data, and interact with dynamically updated content.
