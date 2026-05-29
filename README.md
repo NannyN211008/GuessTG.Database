@@ -10,3 +10,13 @@ The application is built using a modern web stack consisting of:
 - Service Workers + Manifest File – enabling Progressive Web App functionality
 
 The system is designed to simulate a real-world web application where users can securely log in, submit data, and interact with dynamically updated content.
+
+Purpose of the Application
+
+The main purpose of GuessTG.Database is to provide a centralised platform for tracking game guesses and results, allowing users to:
+
+- Record individual game attempts (guesses)
+- Store results in a structured database
+- View all previous guesses in a ranked or time-ordered format
+- Authenticate users before accessing or modifying data
+- Experience a mobile-friendly, installable web application (PWA)
