@@ -6,35 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- Security: blocks cross-site scripting -->
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';">
 
     <title>{% block title %}GuessThe.Game DB{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
     <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    <!-- PWA theme colour -->
+    <meta name="theme-color" content="#1abc9c">
 </head>
 
 <body>
 
-   <h1 class="banner">GuessThe.Game Database</h1>
+    <h1 class="banner">GuessThe.Game Database</h1>
 
-<nav>
-    <a href="/">Home</a>
+    <nav>
+        <a href="/">Home</a>
 
-    {% if 'username' not in session %}
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    {% else %}
-        <a href="/logout">Logout</a>
-    {% endif %}
-</nav>
+        {% if 'username' not in session %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        {% else %}
+            <a href="/logout">Logout</a>
+        {% endif %}
+    </nav>
 
     <main>
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- Service worker registration -->
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
