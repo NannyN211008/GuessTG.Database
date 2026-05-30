@@ -6,11 +6,11 @@ The application uses Python (Flask) for the backend, SQLite for the database, an
 
 The system allows users to:
 
-. create an account
-. log in securely
-. submit game guesses/results
-. view previous submissions
-. track performance over time
+- create an account
+- log in securely
+- submit game guesses/results
+- view previous submissions
+- track performance over time
 
 # Project Requirements
 
@@ -39,50 +39,14 @@ I also had some constraints, such as:
 
 # System Design
 
-A range of technologies were used throughout the development process.
+The system follows a client-server architecture, where the frontend interacts with the backend through Flask routes. The backend then communicates with the SQLite database to retrieve or store information.
 
-Python
+The structure of the system is split into:
 
-- Python was selected as the primary programming language because it is relatively easy to learn while still being powerful enough to develop database-driven web applications. Python was used to process user requests, communicate with the database and control the behaviour of the application.
+- Frontend (client side): HTML templates, CSS styling, JavaScript interactions
+- Backend (server side): Flask routes, session handling, logic processing
+- Database layer: SQLite tables storing users and guesses
 
-Flask Framework
+This separation helped keep the project organised and made debugging easier since each part of the system had a clear purpose.
 
-- The Flask framework was used to simplify web development. Flask provides routing functionality, template rendering and session management which made it suitable for this project.
 
-- Using Flask allowed me to create multiple pages and manage interactions between the user interface and database efficiently.
-
-SQLite Database
-
-- SQLite was chosen because it is lightweight, reliable and does not require a separate database server. This made it ideal for a school software engineering project.
-
-The database stores:
-
-. User account information
-. Usernames
-. Password hashes
-. Guess submissions
-. Scores
-. Dates of submission
-
-All data remains stored even when the application is closed, demonstrating persistent data storage.
-
-HTML
-
-- HTML was used to create the structure of every page within the application including forms, tables, navigation menus and content sections.
-
-CSS
-
-- CSS was used to improve the visual appearance of the application. Styling was applied to create a clean and professional user interface while ensuring readability and usability.
-
-JavaScript
-
-- JavaScript was used to support interactive functionality and Progressive Web App features.
-
-Progressive Web App Technologies
-
-The application includes:
-
-. Manifest file
-. Service worker
-. Application icons
-. Offline caching
