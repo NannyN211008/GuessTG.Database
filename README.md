@@ -87,8 +87,59 @@ Other features include:
 - responsive design for different screen sizes
 - PWA installability
 
+# Security Implementation of this project
 
+Security was an important focus during development. Instead of storing passwords in plain text, I used password hashing through Werkzeug. This means passwords are converted into encrypted strings before being stored.
 
+The login process works by:
+
+1. user enters username and password
+2. system retrieves stored hash from database
+3. entered password is compared to hash
+4. access is granted only if they match
+
+In addition, session management is used to ensure only logged-in users can access restricted routes. This prevents unauthorised access even if someone tries to manually type in URLs.
+
+# Development Process of this project
+
+The project was developed in stages rather than all at once. I started with basic routing in Flask, then added database functionality, followed by user authentication, and finally PWA features.
+
+A rough development order was:
+
+- setting up Flask project structure
+- creating SQLite database and tables
+- building login and authentication system
+- creating homepage and guess submission system
+- improving UI and styling
+- adding PWA features (manifest + service worker)
+- testing and debugging
+
+This step-by-step approach made it easier to identify errors early and avoid major system breakdowns.
+
+# Project Testing and Evaluation
+
+Testing was done throughout development rather than only at the end. Each feature was tested individually before being combined into the full system.
+
+Some issues I encountered included:
+
+- database connection errors when querying tables
+- incorrect SQL joins causing missing usernames
+- login sessions not persisting correctly
+- form data not being inserted properly
+
+These were fixed through debugging and reviewing both backend logic and SQL queries. Testing helped ensure that the final system was stable and functional.
+
+# Implementation of PWA
+
+To improve the application beyond a normal website, I added Progressive Web App functionality.
+
+This included:
+
+- a manifest file that defines the app name, icons and display settings
+- a service worker that caches files for offline use
+- installable app behaviour on supported devices
+
+This means users can install the application on their phone or computer and use it like a native app. It also improves performance because cached resources load faster.
 
 
 
