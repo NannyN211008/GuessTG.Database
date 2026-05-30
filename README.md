@@ -1,27 +1,43 @@
 # Overview of the System
 
-For my Software Engineering project, I developed a database-driven Progressive Web Application (PWA) called GuessTG.Database. The purpose of this application is to allow users to record, store and view their GuessThe.Game results through a secure and easy-to-use online platform. Throughout the development of this project, I applied a range of software engineering concepts including database design, authentication, web development, user interface design, security practices and Progressive Web Application technologies.
+GuessTG.Database is a Progressive Web Application I developed to allow users to store and track their GuessThe.Game results in a structured database system. The main idea behind the project was to create something that goes beyond a basic website and instead functions like a real-world application with login systems, data storage, and offline capabilities.
 
-The project was designed to simulate a real-world web application where multiple users can create accounts, log in securely and contribute data that is permanently stored within a database. Rather than simply creating a static website, I wanted to develop a dynamic application that could process user input, communicate with a database and provide personalised functionality depending on whether a user was logged in or not.
+The application uses Python (Flask) for the backend, SQLite for the database, and HTML/CSS/JavaScript for the frontend. It also includes PWA features such as a service worker and manifest file so it can be installed like a mobile app.
 
-This project demonstrates how modern web applications combine frontend technologies such as HTML, CSS and JavaScript with backend technologies such as Python Flask and SQLite to create a complete software solution.
+The system allows users to:
 
-# Purpose of this Project
+. create an account
+. log in securely
+. submit game guesses/results
+. view previous submissions
+. track performance over time
 
-The main purpose of GuessTG.Database is to provide a centralised system where users can record and track their GuessThe.Game performance over time. Before developing this application, there was no simple way for users to store their game results in a structured format. Results were often forgotten, stored in screenshots or written down manually.
+# Project Requirements
 
-To solve this problem, I developed a system that allows users to:
+At the beginning of the project, I identified a set of functional and non-functional requirements to guide development.
 
-- Create an account
-- Log into the application
-- Submit their GuessThe.Game results
-- View previous submissions
-- Track performance history
-- Access the application through a web browser or installed PWA
+Functional requirements included:
 
-The project was also created to demonstrate my understanding of full-stack web development and database integration
+- users must be able to register and log in
+- users must be able to submit guesses
+- data must be stored in a database permanently
+- users must be able to view past results
+- system must restrict access to logged-in users only
 
-# Technologies used for this project
+Non-functional requirements were also important, especially around performance and usability:
+
+- the system should load quickly on most devices
+- the interface should be simple and easy to navigate
+- data security must be maintained through password hashing
+- the application should work offline where possible (PWA feature)
+
+I also had some constraints, such as:
+
+- limited time for development
+- using only SQLite instead of a full-scale database server
+- keeping the system lightweight so it can run on school devices
+
+# System Design
 
 A range of technologies were used throughout the development process.
 
