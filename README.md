@@ -141,5 +141,12 @@ This included:
 
 This means users can install the application on their phone or computer and use it like a native app. It also improves performance because cached resources load faster.
 
+# Project Conclusion
+
+Overall, GuessTG.Database is a fully functional database-driven web application that demonstrates a range of software engineering concepts including authentication, database design, client-server architecture and PWA development.
+
+Through building this project, I gained a better understanding of how real-world applications are structured and how different technologies work together. I also improved my skills in debugging, database management and full-stack development.
+
+The final system successfully meets its requirements and provides a simple but effective way for users to track their GuessThe.Game results over time.
 
 
