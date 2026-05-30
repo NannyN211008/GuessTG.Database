@@ -1,22 +1,8 @@
 # Overview of the System
 
-GuessTG.Database is a database-driven Progressive Web Application (PWA) designed to allow users to record, store, and view GuessThe.Game results in a structured and interactive way. The system demonstrates core software engineering concepts including authentication, database management, client-server communication, routing, and offline capability through PWA technology.
+For my Software Engineering project, I developed a database-driven Progressive Web Application (PWA) called GuessTG.Database. The purpose of this application is to allow users to record, store and view their GuessThe.Game results through a secure and easy-to-use online platform. Throughout the development of this project, I applied a range of software engineering concepts including database design, authentication, web development, user interface design, security practices and Progressive Web Application technologies.
 
-The application is built using a modern web stack consisting of:
+The project was designed to simulate a real-world web application where multiple users can create accounts, log in securely and contribute data that is permanently stored within a database. Rather than simply creating a static website, I wanted to develop a dynamic application that could process user input, communicate with a database and provide personalised functionality depending on whether a user was logged in or not.
 
-- Flask (Python) – backend web framework handling routing and logic
-- SQLite – lightweight relational database for persistent data storage
-- HTML/CSS/JavaScript – frontend structure, styling, and interactivity
-- Service Workers + Manifest File – enabling Progressive Web App functionality
+This project demonstrates how modern web applications combine frontend technologies such as HTML, CSS and JavaScript with backend technologies such as Python Flask and SQLite to create a complete software solution.
 
-The system is designed to simulate a real-world web application where users can securely log in, submit data, and interact with dynamically updated content.
-
-Purpose of the Application
-
-The main purpose of GuessTG.Database is to provide a centralised platform for tracking game guesses and results, allowing users to:
-
-- Record individual game attempts (guesses)
-- Store results in a structured database
-- View all previous guesses in a ranked or time-ordered format
-- Authenticate users before accessing or modifying data
-- Experience a mobile-friendly, installable web application (PWA)
