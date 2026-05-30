@@ -49,4 +49,46 @@ The structure of the system is split into:
 
 This separation helped keep the project organised and made debugging easier since each part of the system had a clear purpose.
 
+# Database Design
+
+The database was one of the most important parts of the system. I used SQLite because it is simple to set up and works well with Flask.
+
+The database contains two main tables:
+
+Users table:
+
+- user_id (primary key)
+- username
+- password_hash
+
+Guesses table:
+
+- guess_id (primary key)
+- game_name
+- score
+- date
+- user_id (foreign key)
+
+The relationship between these tables is important because each guess is linked to a specific user. This avoids duplication of data and ensures that the system stays organised.
+
+# Key Features of this project
+
+The system includes several major features that make it functional and secure.
+
+User authentication is required before accessing most pages. When a user logs in, a session is created which keeps them signed in while navigating the site. Routes are protected so users cannot bypass login by directly entering URLs.
+
+Another major feature is the guess submission system. Users can enter their game results through a form, which is then sent to the backend and stored in the database.
+
+Other features include:
+
+- dynamic homepage that updates automatically with new guesses
+- display of usernames alongside each result
+- ordering results from newest to oldest
+- responsive design for different screen sizes
+- PWA installability
+
+
+
+
+
 
