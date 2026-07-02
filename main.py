@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, session, redirect
 from datetime import timedelta
+import os
 import db
 
 app = Flask(__name__)
-app.secret_key = "gtg"
+
+# Load secret key from environment variable
+# Uses the fallback only for local development
+app.secret_key = os.environ.get("SECRET_KEY", "development-secret-key")
 
 # -----------------------------
 # Session Security Configuration
@@ -115,4 +119,5 @@ def Add():
     return render_template("add.html")
 
 
-app.run(debug=True, port=5000)
+# Run application
+app.run(debug=False, port=5000)
