@@ -1,13 +1,17 @@
 from flask import Flask, render_template, request, session, redirect
+from datetime import timedelta
 import db
 
 app = Flask(__name__)
 app.secret_key = "gtg"
 
-# Secure session cookies
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_COOKIE_SECURE'] = False
+# -----------------------------
+# Session Security Configuration
+# -----------------------------
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = False      # Change to True when using HTTPS
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
 
 @app.route("/")
@@ -19,7 +23,7 @@ def Home():
 @app.route("/login", methods=["GET", "POST"])
 def Login():
 
-    # already logged in → redirect home
+    # Already logged in
     if "id" in session:
         return redirect("/")
 
@@ -27,15 +31,23 @@ def Login():
 
     if request.method == "POST":
 
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form["username"]
+        password = request.form["password"]
 
         user = db.CheckLogin(username, password)
 
         if user:
-            session['id'] = user['id']
-            session['username'] = user['username']
+
+            # Prevent session fixation attacks
+            session.clear()
+
+            # Create a new secure session
+            session.permanent = True
+            session["id"] = user["id"]
+            session["username"] = user["username"]
+
             return redirect("/")
+
         else:
             error = "Invalid username or password"
 
@@ -44,14 +56,17 @@ def Login():
 
 @app.route("/logout")
 def Logout():
+
+    # Destroy the user's session
     session.clear()
+
     return redirect("/")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def Register():
 
-    # already logged in → redirect home
+    # Already logged in
     if "id" in session:
         return redirect("/")
 
@@ -59,8 +74,8 @@ def Register():
 
     if request.method == "POST":
 
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form["username"]
+        password = request.form["password"]
 
         success, message = db.RegisterUser(username, password)
 
@@ -75,16 +90,16 @@ def Register():
 @app.route("/add", methods=["GET", "POST"])
 def Add():
 
-    # must be logged in
+    # Only authenticated users may access this page
     if "id" not in session:
         return redirect("/login")
 
     if request.method == "POST":
 
-        user_id = session['id']
-        date = request.form['date']
-        game = request.form['game']
-        score = request.form['score']
+        user_id = session["id"]
+        date = request.form["date"]
+        game = request.form["game"]
+        score = request.form["score"]
 
         db.AddGuess(user_id, date, game, score)
 
