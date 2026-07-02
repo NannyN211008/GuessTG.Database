@@ -76,6 +76,12 @@ def Register():
 
         username = request.form["username"]
         password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        # Check passwords match
+        if password != confirm_password:
+            error = "Passwords do not match."
+            return render_template("register.html", error=error)
 
         success, message = db.RegisterUser(username, password)
 
@@ -91,9 +97,9 @@ def Register():
 def Add():
 
     # Only fully authenticated users may access this page
- if "id" not in session or "username" not in session:
-    session.clear()
-    return redirect("/login")
+    if "id" not in session or "username" not in session:
+        session.clear()
+        return redirect("/login")
 
     if request.method == "POST":
 
