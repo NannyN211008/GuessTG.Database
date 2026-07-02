@@ -1,4 +1,5 @@
 import sqlite3
+import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -41,9 +42,25 @@ def CheckLogin(username, password):
 
 
 def RegisterUser(username, password):
-
+    
+    # Check username and password are entered
     if not username or not password:
-        return False
+        return False, "Username and password cannot be empty."
+
+    # Username validation
+    if not re.fullmatch(r"[A-Za-z0-9_]{3,20}", username):
+        return False, "Username must be 3-20 characters and contain only letters, numbers or underscores."
+
+    # Password validation
+    if len(password) < 8:
+        return False, "Password must be at least 8 characters long."
+
+    has_upper = any(c.isupper() for c in password)
+    has_lower = any(c.islower() for c in password)
+    has_digit = any(c.isdigit() for c in password)
+
+    if not (has_upper and has_lower and has_digit):
+        return False, "Password must contain an uppercase letter, lowercase letter and a number."
 
     db = GetDB()
 
@@ -54,7 +71,7 @@ def RegisterUser(username, password):
 
     if existing:
         db.close()
-        return False
+        return False, "Username already exists."
 
     hashed = generate_password_hash(password)
 
@@ -66,7 +83,7 @@ def RegisterUser(username, password):
     db.commit()
     db.close()
 
-    return True
+    return True, None
 
 
 def ResetPassword(username, new_password):
