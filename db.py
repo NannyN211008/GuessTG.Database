@@ -113,8 +113,25 @@ def ResetPassword(username, new_password):
 
 
 def AddGuess(user_id, date, game, score):
-
+    
+    # Validate inputs
     if not date or not game:
+        return False
+
+    # Limit game name length
+    if len(game) > 100:
+        return False
+
+    # Remove leading/trailing spaces
+    game = game.strip()
+
+    # Validate score
+    try:
+        score = int(score)
+    except ValueError:
+        return False
+
+    if score < 0 or score > 6:
         return False
 
     db = GetDB()
