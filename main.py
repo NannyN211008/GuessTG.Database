@@ -4,6 +4,11 @@ import db
 app = Flask(__name__)
 app.secret_key = "gtg"
 
+# Secure session cookies
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = False
+
 
 @app.route("/")
 def Home():
@@ -53,13 +58,16 @@ def Register():
     error = None
 
     if request.method == "POST":
+
         username = request.form['username']
         password = request.form['password']
 
-        if db.RegisterUser(username, password):
-            return redirect("/")
+        success, message = db.RegisterUser(username, password)
+
+        if success:
+            return redirect("/login")
         else:
-            error = "Username already exists or invalid input"
+            error = message
 
     return render_template("register.html", error=error)
 
@@ -72,6 +80,7 @@ def Add():
         return redirect("/login")
 
     if request.method == "POST":
+
         user_id = session['id']
         date = request.form['date']
         game = request.form['game']
