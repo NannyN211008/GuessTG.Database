@@ -18,7 +18,11 @@
 </div>
 
 <br>
-
+{% if guesses|length == 0 %}
+    <p>No guesses yet</p>
+{% else %}
+    <p>Last 10 guesses</p>
+{% endif %}
 <table class="guess_table">
 
     <thead>

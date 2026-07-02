@@ -90,9 +90,10 @@ def Register():
 @app.route("/add", methods=["GET", "POST"])
 def Add():
 
-    # Only authenticated users may access this page
-    if "id" not in session:
-        return redirect("/login")
+    # Only fully authenticated users may access this page
+ if "id" not in session or "username" not in session:
+    session.clear()
+    return redirect("/login")
 
     if request.method == "POST":
 
