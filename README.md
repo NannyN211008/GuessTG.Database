@@ -75,19 +75,21 @@ The relationship between these tables ensures that every submitted guess belongs
 
 # Key Features of this project
 
-The system includes several major features that make it functional and secure.
+The application contains several features that improve both functionality and security.
 
-User authentication is required before accessing most pages. When a user logs in, a session is created which keeps them signed in while navigating the site. Routes are protected so users cannot bypass login by directly entering URLs.
+These include:
 
-Another major feature is the guess submission system. Users can enter their game results through a form, which is then sent to the backend and stored in the database.
-
-Other features include:
-
-- dynamic homepage that updates automatically with new guesses
-- display of usernames alongside each result
-- ordering results from newest to oldest
-- responsive design for different screen sizes
-- PWA installability
+- Secure user registration.
+- Secure login and logout.
+- Password hashing using Werkzeug.
+- Strong password validation.
+- Password confirmation during registration.
+- Secure session management.
+- Protected application routes.
+- Guess submission form.
+- Homepage displaying all guesses.
+- Automatic ordering of guesses from newest to oldest.
+- Progressive Web App installation support.
 
 # Security Implementation of this project
 
