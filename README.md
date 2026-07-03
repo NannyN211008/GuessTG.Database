@@ -1,4 +1,4 @@
-# Overview of the System
+#GTGDB – Secure Progressive Web Application
 
 GuessTG.Database is a Progressive Web Application I developed to allow users to store and track their GuessThe.Game results in a structured database system. The main idea behind the project was to create something that goes beyond a basic website and instead functions like a real-world application with login systems, data storage, and offline capabilities.
 
