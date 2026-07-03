@@ -1,16 +1,21 @@
-#GTGDB – Secure Progressive Web Application
+# GTGDB – Secure Progressive Web Application
 
-GuessTG.Database is a Progressive Web Application I developed to allow users to store and track their GuessThe.Game results in a structured database system. The main idea behind the project was to create something that goes beyond a basic website and instead functions like a real-world application with login systems, data storage, and offline capabilities.
+Overview of the Project
 
-The application uses Python (Flask) for the backend, SQLite for the database, and HTML/CSS/JavaScript for the frontend. It also includes PWA features such as a service worker and manifest file so it can be installed like a mobile app.
+GTGDB (Guess The Game Database) is a Progressive Web Application (PWA) that I developed as part of my Year 12 HSC Software Engineering assessment. The purpose of this project was to design and build a secure web application that allows users to record and manage their daily GuessThe.Game results in a database.
 
-The system allows users to:
+The application was originally provided as an insecure web application. Throughout this project, I analysed the system, identified security vulnerabilities using both Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST), and then implemented secure coding solutions to protect the application against common web attacks.
 
-- create an account
-- log in securely
-- submit game guesses/results
-- view previous submissions
-- track performance over time
+The project was developed using Python with the Flask framework, SQLite for the database, and HTML, CSS and JavaScript for the user interface. Progressive Web App features such as a service worker and web app manifest were also included so the application can be installed and used similarly to a native application.
+
+The completed application allows users to:
+
+Register a new account.
+Log in securely.
+Submit their GuessThe.Game results.
+View previous guesses submitted by all users.
+Store information permanently within a SQLite database.
+Use the application as an installable Progressive Web App.
 
 # Project Requirements
 
