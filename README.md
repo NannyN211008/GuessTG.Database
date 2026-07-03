@@ -103,19 +103,29 @@ Every vulnerability was retested after being fixed to ensure that the applicatio
 
 # Development Process of this project
 
-The project was developed in stages rather than all at once. I started with basic routing in Flask, then added database functionality, followed by user authentication, and finally PWA features.
+The application was developed gradually rather than attempting to build everything at once.
 
-A rough development order was:
+The overall development process included:
 
-- setting up Flask project structure
-- creating SQLite database and tables
-- building login and authentication system
-- creating homepage and guess submission system
-- improving UI and styling
-- adding PWA features (manifest + service worker)
-- testing and debugging
+. planning the project requirements
+. creating the Flask application
+. designing the SQLite database
+. implementing authentication
+. creating database functionality
+. developing the user interface
+. implementing Progressive Web App features
+. identifying vulnerabilities
+. implementing secure coding improvements
+. testing every security fix
+. documenting the development process using Git and a DevOps journal
 
-This step-by-step approach made it easier to identify errors early and avoid major system breakdowns.
+Using Git throughout development allowed every improvement to be tracked through commits and version history.
+
+# Technologies Used in this Project
+The technologies used throughout this project include:
+
+. Python . Flask . SQLite . HTML5 . CSS3 . JavaScript . Git . GitHub . Visual Studio Code . Werkzeug Security Library
+
 
 # Project Testing and Evaluation
 
