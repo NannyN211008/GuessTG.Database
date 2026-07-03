@@ -79,30 +79,27 @@ The application contains several features that improve both functionality and se
 
 These include:
 
-- Secure user registration.
-- Secure login and logout.
-- Password hashing using Werkzeug.
-- Strong password validation.
-- Password confirmation during registration.
-- Secure session management.
-- Protected application routes.
-- Guess submission form.
-- Homepage displaying all guesses.
-- Automatic ordering of guesses from newest to oldest.
-- Progressive Web App installation support.
+. Secure user registration.
+. Secure login and logout.
+. Password hashing using Werkzeug.
+. Strong password validation.
+. Password confirmation during registration.
+. Secure session management.
+. Protected application routes.
+. Guess submission form.
+. Homepage displaying all guesses.
+. Automatic ordering of guesses from newest to oldest.
+. Progressive Web App installation support.
 
 # Security Implementation of this project
 
-Security was an important focus during development. Instead of storing passwords in plain text, I used password hashing through Werkzeug. This means passwords are converted into encrypted strings before being stored.
+Throughout development I used both Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST).
 
-The login process works by:
+SAST involved reviewing the application's source code to identify insecure coding practices before execution. This included analysing authentication logic, password handling, session management and database interactions.
 
-1. user enters username and password
-2. system retrieves stored hash from database
-3. entered password is compared to hash
-4. access is granted only if they match
+DAST involved testing the running application by entering both valid and invalid data into forms to confirm that vulnerabilities could no longer be exploited after secure coding improvements had been implemented.
 
-In addition, session management is used to ensure only logged-in users can access restricted routes. This prevents unauthorised access even if someone tries to manually type in URLs.
+Every vulnerability was retested after being fixed to ensure that the application continued functioning correctly and that no additional vulnerabilities had been introduced.
 
 # Development Process of this project
 
