@@ -56,25 +56,22 @@ This separation helped keep the project organised and made debugging easier sinc
 
 # Database Design
 
-The database was one of the most important parts of the system. I used SQLite because it is simple to set up and works well with Flask.
+SQLite was selected because it is lightweight, easy to configure and integrates well with Flask applications.
 
-The database contains two main tables:
+The database contains two tables.
 
-Users table:
+Users
+ID (Primary Key)
+Username
+Password Hash
+Guesses
+ID (Primary Key)
+Date
+Game
+Score
+User ID (Foreign Key)
 
-- user_id (primary key)
-- username
-- password_hash
-
-Guesses table:
-
-- guess_id (primary key)
-- game_name
-- score
-- date
-- user_id (foreign key)
-
-The relationship between these tables is important because each guess is linked to a specific user. This avoids duplication of data and ensures that the system stays organised.
+The relationship between these tables ensures that every submitted guess belongs to a registered user. This reduces duplicated information while maintaining database integrity.
 
 # Key Features of this project
 
