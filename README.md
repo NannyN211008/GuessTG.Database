@@ -129,35 +129,32 @@ The technologies used throughout this project include:
 
 # Project Testing and Evaluation
 
-Testing was done throughout development rather than only at the end. Each feature was tested individually before being combined into the full system.
+Testing was completed continuously throughout development rather than only at the end of the project.
 
-Some issues I encountered included:
+Each feature was individually tested before being combined into the complete application. Additional regression testing was performed after each security improvement to ensure that fixing one vulnerability did not introduce another.
 
-- database connection errors when querying tables
-- incorrect SQL joins causing missing usernames
-- login sessions not persisting correctly
-- form data not being inserted properly
+The final application was tested for:
 
-These were fixed through debugging and reviewing both backend logic and SQL queries. Testing helped ensure that the final system was stable and functional.
+. user registration
+. secure login
+. logout functionality
+. password validation
+. password confirmation
+. session management
+. protected routes
+. input validation
+. database storage
+. homepage display
+. Progressive Web App functionality
 
-# Implementation of PWA
-
-To improve the application beyond a normal website, I added Progressive Web App functionality.
-
-This included:
-
-- a manifest file that defines the app name, icons and display settings
-- a service worker that caches files for offline use
-- installable app behaviour on supported devices
-
-This means users can install the application on their phone or computer and use it like a native app. It also improves performance because cached resources load faster.
+The completed application operated successfully after all testing had been completed.
 
 # Project Conclusion
 
-Overall, GuessTG.Database is a fully functional database-driven web application that demonstrates a range of software engineering concepts including authentication, database design, client-server architecture and PWA development.
+Overall, GTGDB demonstrates the development of a secure database-driven Progressive Web Application using modern software engineering practices. Throughout this assessment I developed a greater understanding of authentication, session management, secure coding, database development, Progressive Web Applications and web application security.
 
-Through building this project, I gained a better understanding of how real-world applications are structured and how different technologies work together. I also improved my skills in debugging, database management and full-stack development.
+Identifying vulnerabilities, implementing secure coding solutions and validating each improvement through SAST and DAST showed the importance of considering security throughout the entire Software Development Life Cycle rather than only after development has finished.
 
-The final system successfully meets its requirements and provides a simple but effective way for users to track their GuessThe.Game results over time.
+The final application successfully meets its functional and security requirements while providing users with a reliable and secure platform for recording and managing their GuessThe.Game results.
 
 
