@@ -1,149 +1,123 @@
-import sqlite3
-import re
-from werkzeug.security import generate_password_hash, check_password_hash
+from flask import Flask, render_template, request, session, redirect
+from datetime import timedelta
+import os
+import db
+
+app = Flask(__name__)
+
+# Load secret key from environment variable
+# Uses the fallback only for local development
+app.secret_key = os.environ.get("SECRET_KEY", "development-secret-key")
+
+# -----------------------------
+# Session Security Configuration
+# -----------------------------
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+app.config["SESSION_COOKIE_SECURE"] = False      # Change to True when using HTTPS
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(minutes=30)
 
 
-def GetDB():
-    db = sqlite3.connect(".database/gtg.db")
-    db.row_factory = sqlite3.Row
-    return db
+@app.route("/")
+def Home():
+    guessData = db.GetAllGuesses()
+    return render_template("index.html", guesses=guessData)
 
 
-def GetAllGuesses():
+@app.route("/login", methods=["GET", "POST"])
+def Login():
 
-    db = GetDB()
+    # Already logged in
+    if "id" in session:
+        return redirect("/")
 
-    guesses = db.execute("""
-        SELECT Guesses.date, Guesses.game, Guesses.score, Users.username
-        FROM Guesses
-        JOIN Users ON Guesses.user_id = Users.id
-        ORDER BY Guesses.date DESC
-    """).fetchall()
+    error = None
 
-    db.close()
-    return guesses
+    if request.method == "POST":
 
+        username = request.form["username"]
+        password = request.form["password"]
 
-def CheckLogin(username, password):
+        user = db.CheckLogin(username, password)
 
-    db = GetDB()
+        if user:
 
-    user = db.execute(
-        "SELECT * FROM Users WHERE username=?",
-        (username,)
-    ).fetchone()
+            # Prevent session fixation attacks
+            session.clear()
 
-    db.close()
+            # Create a new secure session
+            session.permanent = True
+            session["id"] = user["id"]
+            session["username"] = user["username"]
 
-    if user and check_password_hash(user['password'], password):
-        return user
+            return redirect("/")
 
-    return None
+        else:
+            error = "Invalid username or password"
 
-
-def RegisterUser(username, password):
-    
-    # Check username and password are entered
-    if not username or not password:
-        return False, "Username and password cannot be empty."
-
-    # Username validation
-    if not re.fullmatch(r"[A-Za-z0-9_]{3,20}", username):
-        return False, "Username must be 3-20 characters and contain only letters, numbers or underscores."
-
-    # Password validation
-    if len(password) < 8:
-        return False, "Password must be at least 8 characters long."
-
-    has_upper = any(c.isupper() for c in password)
-    has_lower = any(c.islower() for c in password)
-    has_digit = any(c.isdigit() for c in password)
-
-    if not (has_upper and has_lower and has_digit):
-        return False, "Password must contain an uppercase letter, lowercase letter and a number."
-
-    db = GetDB()
-
-    existing = db.execute(
-        "SELECT * FROM Users WHERE username=?",
-        (username,)
-    ).fetchone()
-
-    if existing:
-        db.close()
-        return False, "Username already exists."
-
-    hashed = generate_password_hash(password)
-
-    db.execute(
-        "INSERT INTO Users(username, password) VALUES(?, ?)",
-        (username, hashed)
-    )
-
-    db.commit()
-    db.close()
-
-    return True, None
+    return render_template("login.html", error=error)
 
 
-def ResetPassword(username, new_password):
+@app.route("/logout")
+def Logout():
 
-    db = GetDB()
+    # Destroy the user's session
+    session.clear()
 
-    user = db.execute(
-        "SELECT * FROM Users WHERE username=?",
-        (username,)
-    ).fetchone()
-
-    if not user:
-        db.close()
-        return False
-
-    hashed = generate_password_hash(new_password)
-
-    db.execute(
-        "UPDATE Users SET password=? WHERE username=?",
-        (hashed, username)
-    )
-
-    db.commit()
-    db.close()
-
-    return True
+    return redirect("/")
 
 
-def AddGuess(user_id, date, game, score):
-    
-    if not date or not game:
-        return False
+@app.route("/register", methods=["GET", "POST"])
+def Register():
 
-    # Remove leading and trailing spaces
-    game = game.strip()
+    # Already logged in
+    if "id" in session:
+        return redirect("/")
 
-    # Reject HTML or JavaScript tags
-    if "<" in game or ">" in game:
-        return False
+    error = None
 
-    # Limit game name length
-    if len(game) > 100:
-        return False
+    if request.method == "POST":
 
-    try:
-        score = int(score)
-    except ValueError:
-        return False
+        username = request.form["username"]
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
 
-    if score < 0 or score > 6:
-        return False
+        # Check passwords match
+        if password != confirm_password:
+            error = "Passwords do not match."
+            return render_template("register.html", error=error)
 
-    db = GetDB()
+        success, message = db.RegisterUser(username, password)
 
-    db.execute(
-        "INSERT INTO Guesses(user_id, date, game, score) VALUES (?, ?, ?, ?)",
-        (user_id, date, game, score)
-    )
+        if success:
+            return redirect("/login")
+        else:
+            error = message
 
-    db.commit()
-    db.close()
+    return render_template("register.html", error=error)
 
-    return True
+
+@app.route("/add", methods=["GET", "POST"])
+def Add():
+
+    # Only fully authenticated users may access this page
+    if "id" not in session or "username" not in session:
+        session.clear()
+        return redirect("/login")
+
+    if request.method == "POST":
+
+        user_id = session["id"]
+        date = request.form["date"]
+        game = request.form["game"]
+        score = request.form["score"]
+
+        db.AddGuess(user_id, date, game, score)
+
+        return redirect("/")
+
+    return render_template("add.html")
+
+
+# Run application
+app.run(debug=False, port=5000)

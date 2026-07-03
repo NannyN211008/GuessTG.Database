@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, session, redirect
 from datetime import timedelta
+import os
 import db
 
 app = Flask(__name__)
-app.secret_key = "gtg"
+
+# Load secret key from environment variable
+# Uses the fallback only for local development
+app.secret_key = os.environ.get("SECRET_KEY", "development-secret-key")
 
 # -----------------------------
 # Session Security Configuration
@@ -76,6 +80,12 @@ def Register():
 
         username = request.form["username"]
         password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        # Check passwords match
+        if password != confirm_password:
+            error = "Passwords do not match."
+            return render_template("register.html", error=error)
 
         success, message = db.RegisterUser(username, password)
 
@@ -90,8 +100,9 @@ def Register():
 @app.route("/add", methods=["GET", "POST"])
 def Add():
 
-    # Only authenticated users may access this page
-    if "id" not in session:
+    # Only fully authenticated users may access this page
+    if "id" not in session or "username" not in session:
+        session.clear()
         return redirect("/login")
 
     if request.method == "POST":
@@ -108,4 +119,5 @@ def Add():
     return render_template("add.html")
 
 
-app.run(debug=True, port=5000)
+# Run application
+app.run(debug=False, port=5000)

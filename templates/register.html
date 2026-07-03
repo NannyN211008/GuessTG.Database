@@ -8,11 +8,18 @@
 {% endif %}
 
 <form action="/register" method="post">
-    <label>Username: </label>
-    <input type="text" name="username" id="username">
-    <label>Password: </label>
-    <input type="password" name="password" id="password">
+
+    <label>Username:</label>
+    <input type="text" name="username" id="username" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" id="password" required>
+
+    <label>Confirm Password:</label>
+    <input type="password" name="confirm_password" id="confirm_password" required>
+
     <input type="submit" value="Register">
+
 </form>
 
 {% endblock %}

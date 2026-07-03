@@ -1,16 +1,21 @@
-# Overview of the System
+# GTGDB – Secure Progressive Web Application
 
-GuessTG.Database is a Progressive Web Application I developed to allow users to store and track their GuessThe.Game results in a structured database system. The main idea behind the project was to create something that goes beyond a basic website and instead functions like a real-world application with login systems, data storage, and offline capabilities.
+Overview of the Project
 
-The application uses Python (Flask) for the backend, SQLite for the database, and HTML/CSS/JavaScript for the frontend. It also includes PWA features such as a service worker and manifest file so it can be installed like a mobile app.
+GTGDB (Guess The Game Database) is a Progressive Web Application (PWA) that I developed as part of my Year 12 HSC Software Engineering assessment. The purpose of this project was to design and build a secure web application that allows users to record and manage their daily GuessThe.Game results in a database.
 
-The system allows users to:
+The application was originally provided as an insecure web application. Throughout this project, I analysed the system, identified security vulnerabilities using both Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST), and then implemented secure coding solutions to protect the application against common web attacks.
 
-- create an account
-- log in securely
-- submit game guesses/results
-- view previous submissions
-- track performance over time
+The project was developed using Python with the Flask framework, SQLite for the database, and HTML, CSS and JavaScript for the user interface. Progressive Web App features such as a service worker and web app manifest were also included so the application can be installed and used similarly to a native application.
+
+The completed application allows users to:
+
+Register a new account.
+Log in securely.
+Submit their GuessThe.Game results.
+View previous guesses submitted by all users.
+Store information permanently within a SQLite database.
+Use the application as an installable Progressive Web App.
 
 # Project Requirements
 
@@ -51,54 +56,50 @@ This separation helped keep the project organised and made debugging easier sinc
 
 # Database Design
 
-The database was one of the most important parts of the system. I used SQLite because it is simple to set up and works well with Flask.
+SQLite was selected because it is lightweight, easy to configure and integrates well with Flask applications.
 
-The database contains two main tables:
+The database contains two tables.
 
-Users table:
+Users
+ID (Primary Key)
+Username
+Password Hash
+Guesses
+ID (Primary Key)
+Date
+Game
+Score
+User ID (Foreign Key)
 
-- user_id (primary key)
-- username
-- password_hash
-
-Guesses table:
-
-- guess_id (primary key)
-- game_name
-- score
-- date
-- user_id (foreign key)
-
-The relationship between these tables is important because each guess is linked to a specific user. This avoids duplication of data and ensures that the system stays organised.
+The relationship between these tables ensures that every submitted guess belongs to a registered user. This reduces duplicated information while maintaining database integrity.
 
 # Key Features of this project
 
-The system includes several major features that make it functional and secure.
+The application contains several features that improve both functionality and security.
 
-User authentication is required before accessing most pages. When a user logs in, a session is created which keeps them signed in while navigating the site. Routes are protected so users cannot bypass login by directly entering URLs.
+These include:
 
-Another major feature is the guess submission system. Users can enter their game results through a form, which is then sent to the backend and stored in the database.
-
-Other features include:
-
-- dynamic homepage that updates automatically with new guesses
-- display of usernames alongside each result
-- ordering results from newest to oldest
-- responsive design for different screen sizes
-- PWA installability
+. Secure user registration.
+. Secure login and logout.
+. Password hashing using Werkzeug.
+. Strong password validation.
+. Password confirmation during registration.
+. Secure session management.
+. Protected application routes.
+. Guess submission form.
+. Homepage displaying all guesses.
+. Automatic ordering of guesses from newest to oldest.
+. Progressive Web App installation support.
 
 # Security Implementation of this project
 
-Security was an important focus during development. Instead of storing passwords in plain text, I used password hashing through Werkzeug. This means passwords are converted into encrypted strings before being stored.
+Throughout development I used both Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST).
 
-The login process works by:
+SAST involved reviewing the application's source code to identify insecure coding practices before execution. This included analysing authentication logic, password handling, session management and database interactions.
 
-1. user enters username and password
-2. system retrieves stored hash from database
-3. entered password is compared to hash
-4. access is granted only if they match
+DAST involved testing the running application by entering both valid and invalid data into forms to confirm that vulnerabilities could no longer be exploited after secure coding improvements had been implemented.
 
-In addition, session management is used to ensure only logged-in users can access restricted routes. This prevents unauthorised access even if someone tries to manually type in URLs.
+Every vulnerability was retested after being fixed to ensure that the application continued functioning correctly and that no additional vulnerabilities had been introduced.
 
 # Development Process of this project
 
